@@ -75,7 +75,14 @@ return	axios.get('/get/articles')
 
 deleteArticle:function(obj){
 
-return axios.post('/delete/article', obj)
+return axios.post('/delete/article', obj).then(function(response){
+	
+  	return {
+  		articles:response.data.articles
+  }
+
+
+});
 
 
 },

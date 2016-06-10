@@ -24809,7 +24809,12 @@
 
 		deleteArticle: function deleteArticle(obj) {
 
-			return axios.post('/delete/article', obj);
+			return axios.post('/delete/article', obj).then(function (response) {
+
+				return {
+					articles: response.data.articles
+				};
+			});
 		}
 
 	};
@@ -26092,6 +26097,13 @@
 			}.bind(this));
 		},
 
+		handleTransfer: function handleTransfer(articles) {
+			this.setState({
+				articles: articles
+
+			});
+		},
+
 		render: function render() {
 			return React.createElement(
 				'div',
@@ -26120,8 +26132,8 @@
 							'ul',
 							{ className: 'list-group' },
 							this.state.articles.map(function (result) {
-								return React.createElement(ResultsData, { key: result._id, data: result });
-							})
+								return React.createElement(ResultsData, { key: result._id, data: result, callback: this.handleTransfer });
+							}.bind(this))
 						)
 					)
 				)
@@ -26145,17 +26157,30 @@
 
 		getInitialState: function getInitialState() {
 			return {
-				_id: this.props.data._id
+				_id: this.props.data._id,
+				articles: []
 			};
 		},
 		deleteArticle: function deleteArticle() {
-			console.log('deleted');
+			console.log('deleted ' + this.state._id);
 
 			var obj = {
 				_id: this.state._id
 			};
 
-			helpers.deleteArticle(obj);
+			helpers.deleteArticle(obj).then(function (data) {
+
+				this.setState({
+					articles: data.articles
+				});
+
+				console.log(this.state.articles);
+				this.handleChange();
+			}.bind(this));
+		},
+
+		handleChange: function handleChange() {
+			this.props.callback(this.state.articles);
 		},
 
 		render: function render() {

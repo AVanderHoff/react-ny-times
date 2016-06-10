@@ -25,6 +25,12 @@ componentDidMount: function(){
 
 },
 
+handleTransfer: function(articles) {
+    this.setState({
+      articles: articles,
+      
+    });
+  },
 
 
 
@@ -37,6 +43,7 @@ componentDidMount: function(){
    return (
      
    				<div className="col-lg-12">
+   				
 
 				<div className="panel panel-primary">
 					<div className="panel-heading">
@@ -45,11 +52,12 @@ componentDidMount: function(){
 					<div className="panel-body">
 						<ul className="list-group">
 						 {this.state.articles.map(function(result) {
-           				return <ResultsData key={result._id} data={result}/>;
-        					})}
+           				return <ResultsData  key={result._id} data={result} callback={this.handleTransfer} />;
+        					}.bind(this))}
 
 						  					  
 						</ul>					
+					
 					</div>
 				</div>
 

@@ -61,8 +61,24 @@ module.exports = function(app){
   app.post('/delete/article',function(req,res){
 
     console.log(req.body)
-    Article.findOneAndRemove({_id:req.body._id}).then(function(){
-      console.log(req.body._id + " removed")
+    // Article.findOneAndRemove({_id:req.body._id}).then(function(){
+    //   console.log(req.body._id + " removed")
+    
+    // })
+
+    Article.findOneAndRemove({_id:req.body._id},function(err,arr){
+        if (err) return handleError(err);
+        
+        Article.find({}).exec(function(err,doc){
+
+              var obj = {
+                articles:doc
+              }
+
+              res.json(obj);
+      })
+
+    
     })
 
 

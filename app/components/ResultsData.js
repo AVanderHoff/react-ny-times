@@ -4,24 +4,40 @@ var helpers = require('../utils/helpers');
 var ResultsData = React.createClass({
 getInitialState:function(){
 	return{
-		_id:this.props.data._id
+		_id:this.props.data._id,
+		articles:[]
 	}
 
 
 },
 deleteArticle:function(){
-	console.log('deleted')
+	console.log('deleted ' + this.state._id)
 
 	var obj = {
 		_id:this.state._id
 	}
 
-	helpers.deleteArticle(obj);
+	helpers.deleteArticle(obj).then(function(data){
 
+ 				this.setState({
+					articles: data.articles,
+				})
+ 			
+ 					
+ 					console.log(this.state.articles)
+ 					this.handleChange();
+ 		}.bind(this))
 
+	
 
 
 },
+
+handleChange:function() {
+    this.props.callback(
+      this.state.articles
+    );
+ },
 
 
 render:function(){
