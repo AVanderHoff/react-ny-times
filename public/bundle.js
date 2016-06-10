@@ -24447,9 +24447,9 @@
 	var React = __webpack_require__(1);
 
 	var Main = __webpack_require__(209);
-	var Search = __webpack_require__(212);
+	var Search = __webpack_require__(210);
 
-	var Saved = __webpack_require__(211);
+	var Saved = __webpack_require__(232);
 
 	var Router = __webpack_require__(159);
 	var Route = Router.Route;
@@ -24459,74 +24459,84 @@
 	module.exports = React.createElement(
 		Route,
 		{ path: '/', component: Main },
-		React.createElement(IndexRoute, { component: Search }),
-		React.createElement(Route, { path: 'saved', component: Saved })
+		React.createElement(Route, { path: 'search', component: Search }),
+		React.createElement(Route, { path: 'saved', component: Saved }),
+		React.createElement(IndexRoute, { component: Search })
 	);
 
 /***/ },
 /* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var React = __webpack_require__(1);
+	var Router = __webpack_require__(159);
 
 	var Main = React.createClass({
-		displayName: "Main",
+		displayName: 'Main',
+
+		// mixins: [Router.History],
+		gotoSearch: function gotoSearch() {
+			this.history.pushState(null, "search");
+		},
+		gotoSaved: function gotoSaved() {
+			this.history.pushState(null, "saved");
+		},
 
 		render: function render() {
 			return React.createElement(
-				"div",
-				{ className: "container" },
+				'div',
+				{ className: 'container' },
 				React.createElement(
-					"nav",
-					{ className: "navbar navbar-default", role: "navigation" },
+					'nav',
+					{ className: 'navbar navbar-default', role: 'navigation' },
 					React.createElement(
-						"div",
-						{ className: "container-fluid" },
+						'div',
+						{ className: 'container-fluid' },
 						React.createElement(
-							"div",
-							{ className: "navbar-header" },
+							'div',
+							{ className: 'navbar-header' },
 							React.createElement(
-								"button",
-								{ type: "button", className: "navbar-toggle", "data-toggle": "collapse", "data-target": ".navbar-ex1-collapse" },
+								'button',
+								{ type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '.navbar-ex1-collapse' },
 								React.createElement(
-									"span",
-									{ className: "sr-only" },
-									"Toggle navigation"
+									'span',
+									{ className: 'sr-only' },
+									'Toggle navigation'
 								),
-								React.createElement("span", { className: "icon-bar" }),
-								React.createElement("span", { className: "icon-bar" }),
-								React.createElement("span", { className: "icon-bar" })
+								React.createElement('span', { className: 'icon-bar' }),
+								React.createElement('span', { className: 'icon-bar' }),
+								React.createElement('span', { className: 'icon-bar' })
 							),
 							React.createElement(
-								"a",
-								{ className: "navbar-brand", href: "#" },
-								"NYT-React"
+								'a',
+								{ className: 'navbar-brand', href: '#' },
+								'NYT-React'
 							)
 						),
 						React.createElement(
-							"div",
-							{ className: "collapse navbar-collapse navbar-ex1-collapse" },
+							'div',
+							{ className: 'collapse navbar-collapse navbar-ex1-collapse' },
 							React.createElement(
-								"ul",
-								{ className: "nav navbar-nav navbar-right" },
+								'ul',
+								{ className: 'nav navbar-nav navbar-right' },
 								React.createElement(
-									"li",
+									'li',
 									null,
 									React.createElement(
-										"a",
-										{ href: "#" },
-										"Search"
+										'a',
+										{ href: '#/search' },
+										'Search'
 									)
 								),
 								React.createElement(
-									"li",
+									'li',
 									null,
 									React.createElement(
-										"a",
-										{ href: "#" },
-										"Saved Articles"
+										'a',
+										{ href: '#/saved' },
+										'Saved Articles'
 									)
 								)
 							)
@@ -24534,21 +24544,21 @@
 					)
 				),
 				React.createElement(
-					"div",
-					{ className: "jumbotron" },
+					'div',
+					{ className: 'jumbotron' },
 					React.createElement(
-						"h2",
-						{ className: "text-center" },
+						'h2',
+						{ className: 'text-center' },
 						React.createElement(
-							"strong",
+							'strong',
 							null,
-							"New York Times Article Scrubber"
+							'New York Times Article Scrubber'
 						)
 					),
 					React.createElement(
-						"h3",
-						{ className: "text-center" },
-						"Search for and save articles of interest."
+						'h3',
+						{ className: 'text-center' },
+						'Search for and save articles of interest.'
 					)
 				),
 				this.props.children
@@ -24559,251 +24569,28 @@
 	module.exports = Main;
 
 /***/ },
-/* 210 */,
-/* 211 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var React = __webpack_require__(1);
-
-	var Saved = React.createClass({
-		displayName: "Saved",
-
-		render: function render() {
-			return React.createElement(
-				"div",
-				{ className: "col-lg-12" },
-				React.createElement(
-					"div",
-					{ className: "panel panel-primary" },
-					React.createElement(
-						"div",
-						{ className: "panel-heading" },
-						React.createElement(
-							"h1",
-							{ className: "panel-title" },
-							React.createElement(
-								"strong",
-								null,
-								React.createElement("i", { className: "fa fa-list-alt" }),
-								"  Results"
-							)
-						)
-					),
-					React.createElement(
-						"div",
-						{ className: "panel-body" },
-						React.createElement(
-							"ul",
-							{ className: "list-group" },
-							React.createElement(
-								"li",
-								{ className: "list-group-item" },
-								React.createElement(
-									"h3",
-									null,
-									React.createElement(
-										"span",
-										null,
-										React.createElement(
-											"em",
-											null,
-											"Aliens Invade Paris"
-										)
-									),
-									React.createElement(
-										"span",
-										{ className: "btn-group pull-right" },
-										React.createElement(
-											"button",
-											{ className: "btn btn-default " },
-											"View Article"
-										),
-										React.createElement(
-											"button",
-											{ className: "btn btn-primary" },
-											"Save"
-										)
-									)
-								),
-								React.createElement(
-									"p",
-									null,
-									"Date Published: 03/15/16"
-								)
-							),
-							React.createElement(
-								"li",
-								{ className: "list-group-item" },
-								React.createElement(
-									"h3",
-									null,
-									React.createElement(
-										"span",
-										null,
-										React.createElement(
-											"em",
-											null,
-											"Obama Gives Commencement Speech"
-										)
-									),
-									React.createElement(
-										"span",
-										{ className: "btn-group pull-right" },
-										React.createElement(
-											"button",
-											{ className: "btn btn-default " },
-											"View Article"
-										),
-										React.createElement(
-											"button",
-											{ className: "btn btn-primary" },
-											"Save"
-										)
-									)
-								),
-								React.createElement(
-									"p",
-									null,
-									"Date Published: 03/15/16"
-								)
-							),
-							React.createElement(
-								"li",
-								{ className: "list-group-item" },
-								React.createElement(
-									"h3",
-									null,
-									React.createElement(
-										"span",
-										null,
-										React.createElement(
-											"em",
-											null,
-											"AIDS is Cured!"
-										)
-									),
-									React.createElement(
-										"span",
-										{ className: "btn-group pull-right" },
-										React.createElement(
-											"button",
-											{ className: "btn btn-default " },
-											"View Article"
-										),
-										React.createElement(
-											"button",
-											{ className: "btn btn-primary" },
-											"Save"
-										)
-									)
-								),
-								React.createElement(
-									"p",
-									null,
-									"Date Published: 03/15/16"
-								)
-							),
-							React.createElement(
-								"li",
-								{ className: "list-group-item" },
-								React.createElement(
-									"h3",
-									null,
-									React.createElement(
-										"span",
-										null,
-										React.createElement(
-											"em",
-											null,
-											"Knicks Win Championship"
-										)
-									),
-									React.createElement(
-										"span",
-										{ className: "btn-group pull-right" },
-										React.createElement(
-											"button",
-											{ className: "btn btn-default " },
-											"View Article"
-										),
-										React.createElement(
-											"button",
-											{ className: "btn btn-primary" },
-											"Save"
-										)
-									)
-								),
-								React.createElement(
-									"p",
-									null,
-									"Date Published: 03/15/16"
-								)
-							),
-							React.createElement(
-								"li",
-								{ className: "list-group-item" },
-								React.createElement(
-									"h3",
-									null,
-									React.createElement(
-										"span",
-										null,
-										React.createElement(
-											"em",
-											null,
-											"Mud: The New Superfood?"
-										)
-									),
-									React.createElement(
-										"span",
-										{ className: "btn-group pull-right" },
-										React.createElement(
-											"button",
-											{ className: "btn btn-default " },
-											"View Article"
-										),
-										React.createElement(
-											"button",
-											{ className: "btn btn-primary" },
-											"Save"
-										)
-									)
-								),
-								React.createElement(
-									"p",
-									null,
-									"Date Published: 03/15/16"
-								)
-							)
-						)
-					)
-				)
-			);
-		}
-	});
-
-	module.exports = Saved;
-
-/***/ },
-/* 212 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var helpers = __webpack_require__(213);
-	var Results = __webpack_require__(233);
+	var helpers = __webpack_require__(211);
+	var Results = __webpack_require__(231);
 
 	var Search = React.createClass({
 	  displayName: 'Search',
 
 	  getInitialState: function getInitialState() {
 	    return {
-	      articles: []
+	      articles: [],
+	      topic: "",
+	      start: "",
+	      end: ""
+
 	    };
 	  },
+
 	  getTopic: function getTopic(topic) {
 	    this.topic = topic;
 	  },
@@ -24819,10 +24606,11 @@
 	    console.log(this.start.value);
 	    console.log(this.end.value);
 	    var topic = this.topic.value;
+
 	    var start = this.start.value;
 	    var end = this.end.value;
 
-	    var query = topic + "&begin_date=" + start + "0101" + "&end_date=" + end + "0101";
+	    var query = topic + "&begin_date=" + start + "0101" + "&end_date=" + end + "1231";
 
 	    helpers.findArticles(query).then(function (data) {
 
@@ -24833,6 +24621,10 @@
 	      console.log(data.articles);
 	      console.log(this.state.articles);
 	    }.bind(this));
+
+	    // $('#search_topic').value('');
+	    // $('#search_start').value('');
+	    // $('#search_end').value('');
 	  },
 
 	  render: function render() {
@@ -24956,14 +24748,36 @@
 	module.exports = Search;
 
 /***/ },
-/* 213 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
-	var axios = __webpack_require__(214);
+	var axios = __webpack_require__(212);
+	var react = __webpack_require__(1);
 
 	//Here's your API Key for the Article Search API: f925611cdfbe465fa76f5d7082c467e1
+
+	// var mongoose = require('mongoose');
+
+	// //mongoose.connect('mongodb://localhost/profootballtalk');
+	// mongoose.connect("mongodb://andrew:password@ds043324.mlab.com:43324/profootballtalk", function (error) {
+	//     if (error) console.error(error);
+	//     else console.log('mongo connected');
+	// });
+
+	// var db = mongoose.connection;
+
+	// db.on('error', function(err) {
+	//   console.log('Mongoose Error: ', err);
+	// });
+	// db.once('open', function() {
+	//   console.log('Mongoose connection successful.');
+	// });
+
+	//  var Article = require('../../models/articles.js');
+
+	var currentURL = window.location.origin;
 
 	var helpers = {
 
@@ -24977,6 +24791,25 @@
 					articles: arr.data.response.docs
 				};
 			});
+		},
+
+		saveArticle: function saveArticle(obj) {
+
+			return axios.post('/save/article', obj);
+		},
+
+		getArticles: function getArticles() {
+
+			return axios.get('/get/articles').then(function (response) {
+				console.log(response.data.articles);
+				return {
+					articles: response.data.articles };
+			});
+		},
+
+		deleteArticle: function deleteArticle(obj) {
+
+			return axios.post('/delete/article', obj);
 		}
 
 	};
@@ -24984,27 +24817,27 @@
 	module.exports = helpers;
 
 /***/ },
-/* 214 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	module.exports = __webpack_require__(215);
+	module.exports = __webpack_require__(213);
 
 /***/ },
-/* 215 */
+/* 213 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(216);
-	var utils = __webpack_require__(217);
-	var dispatchRequest = __webpack_require__(219);
-	var InterceptorManager = __webpack_require__(228);
-	var isAbsoluteURL = __webpack_require__(229);
-	var combineURLs = __webpack_require__(230);
-	var bind = __webpack_require__(231);
-	var transformData = __webpack_require__(223);
+	var defaults = __webpack_require__(214);
+	var utils = __webpack_require__(215);
+	var dispatchRequest = __webpack_require__(217);
+	var InterceptorManager = __webpack_require__(226);
+	var isAbsoluteURL = __webpack_require__(227);
+	var combineURLs = __webpack_require__(228);
+	var bind = __webpack_require__(229);
+	var transformData = __webpack_require__(221);
 
 	function Axios(defaultConfig) {
 	  this.defaults = utils.merge({}, defaultConfig);
@@ -25082,7 +24915,7 @@
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(232);
+	axios.spread = __webpack_require__(230);
 
 	// Provide aliases for supported request methods
 	utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
@@ -25109,13 +24942,13 @@
 	});
 
 /***/ },
-/* 216 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(217);
-	var normalizeHeaderName = __webpack_require__(218);
+	var utils = __webpack_require__(215);
+	var normalizeHeaderName = __webpack_require__(216);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -25181,7 +25014,7 @@
 	};
 
 /***/ },
-/* 217 */
+/* 215 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25461,12 +25294,12 @@
 	};
 
 /***/ },
-/* 218 */
+/* 216 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(217);
+	var utils = __webpack_require__(215);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -25478,7 +25311,7 @@
 	};
 
 /***/ },
-/* 219 */
+/* 217 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -25501,10 +25334,10 @@
 	        adapter = config.adapter;
 	      } else if (typeof XMLHttpRequest !== 'undefined') {
 	        // For browsers use XHR adapter
-	        adapter = __webpack_require__(220);
+	        adapter = __webpack_require__(218);
 	      } else if (typeof process !== 'undefined') {
 	        // For node use HTTP adapter
-	        adapter = __webpack_require__(220);
+	        adapter = __webpack_require__(218);
 	      }
 
 	      if (typeof adapter === 'function') {
@@ -25518,18 +25351,18 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 220 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(217);
-	var buildURL = __webpack_require__(221);
-	var parseHeaders = __webpack_require__(222);
-	var transformData = __webpack_require__(223);
-	var isURLSameOrigin = __webpack_require__(224);
-	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(225);
-	var settle = __webpack_require__(226);
+	var utils = __webpack_require__(215);
+	var buildURL = __webpack_require__(219);
+	var parseHeaders = __webpack_require__(220);
+	var transformData = __webpack_require__(221);
+	var isURLSameOrigin = __webpack_require__(222);
+	var btoa = typeof window !== 'undefined' && window.btoa || __webpack_require__(223);
+	var settle = __webpack_require__(224);
 
 	module.exports = function xhrAdapter(resolve, reject, config) {
 	  var requestData = config.data;
@@ -25622,7 +25455,7 @@
 	  // This is only done if running in a standard browser environment.
 	  // Specifically not if we're in a web worker, or react-native.
 	  if (utils.isStandardBrowserEnv()) {
-	    var cookies = __webpack_require__(227);
+	    var cookies = __webpack_require__(225);
 
 	    // Add xsrf header
 	    var xsrfValue = config.withCredentials || isURLSameOrigin(config.url) ? cookies.read(config.xsrfCookieName) : undefined;
@@ -25680,12 +25513,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ },
-/* 221 */
+/* 219 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(217);
+	var utils = __webpack_require__(215);
 
 	function encode(val) {
 	  return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
@@ -25746,12 +25579,12 @@
 	};
 
 /***/ },
-/* 222 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(217);
+	var utils = __webpack_require__(215);
 
 	/**
 	 * Parse headers into an object
@@ -25790,12 +25623,12 @@
 	};
 
 /***/ },
-/* 223 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(217);
+	var utils = __webpack_require__(215);
 
 	/**
 	 * Transform the data for a request or a response
@@ -25815,12 +25648,12 @@
 	};
 
 /***/ },
-/* 224 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(217);
+	var utils = __webpack_require__(215);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -25883,7 +25716,7 @@
 	}();
 
 /***/ },
-/* 225 */
+/* 223 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25923,7 +25756,7 @@
 	module.exports = btoa;
 
 /***/ },
-/* 226 */
+/* 224 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -25947,12 +25780,12 @@
 	};
 
 /***/ },
-/* 227 */
+/* 225 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(217);
+	var utils = __webpack_require__(215);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -26005,12 +25838,12 @@
 	}();
 
 /***/ },
-/* 228 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(217);
+	var utils = __webpack_require__(215);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -26062,7 +25895,7 @@
 	module.exports = InterceptorManager;
 
 /***/ },
-/* 229 */
+/* 227 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26083,7 +25916,7 @@
 	};
 
 /***/ },
-/* 230 */
+/* 228 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26101,7 +25934,7 @@
 	};
 
 /***/ },
-/* 231 */
+/* 229 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26117,7 +25950,7 @@
 	};
 
 /***/ },
-/* 232 */
+/* 230 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -26150,50 +25983,74 @@
 	};
 
 /***/ },
-/* 233 */
+/* 231 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	var React = __webpack_require__(1);
+	var axios = __webpack_require__(212);
+	var helpers = __webpack_require__(211);
+	var currentURL = window.location.origin;
+	var Router = __webpack_require__(159);
 
 	var Results = React.createClass({
-		displayName: "Results",
+		displayName: 'Results',
+
+		//	mixins: [Router.History],
+		getInitialState: function getInitialState() {
+			return {
+				article: {
+					url: this.props.data.web_url,
+					title: this.props.data.headline.main
+				}
+			};
+		},
+		//date:this.props.data.pub_data
+		saveArticle: function saveArticle() {
+
+			console.log(currentURL);
+			console.log(this.state.article);
+
+			//put into helpers, use return statements, maybe get rid of current url
+
+			helpers.saveArticle(this.state.article);
+		},
 
 		render: function render() {
 
 			return React.createElement(
-				"li",
-				{ className: "list-group-item" },
+				'li',
+				{ className: 'list-group-item' },
 				React.createElement(
-					"h3",
+					'h3',
 					null,
 					React.createElement(
-						"span",
+						'span',
 						null,
 						React.createElement(
-							"em",
+							'em',
 							null,
 							this.props.data.headline.main
 						)
 					),
 					React.createElement(
-						"span",
-						{ className: "btn-group pull-right" },
+						'span',
+						{ className: 'btn-group pull-right' },
 						React.createElement(
-							"a",
-							{ href: this.props.data.web_url, target: "_blank", className: "btn btn-primary", type: "submit", role: "button" },
-							"View Article"
+							'a',
+							{ href: this.props.data.web_url, target: '_blank', className: 'btn btn-primary', type: 'submit', role: 'button' },
+							'View Article'
 						),
 						React.createElement(
-							"button",
-							{ className: "btn btn-primary" },
-							"Save"
+							'button',
+							{ className: 'btn btn-primary', onClick: this.saveArticle },
+							'Save'
 						)
 					)
 				),
 				React.createElement(
-					"p",
+					'p',
 					null,
 					this.props.data.pub_date
 				)
@@ -26202,6 +26059,161 @@
 	});
 
 	module.exports = Results;
+
+/***/ },
+/* 232 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var helpers = __webpack_require__(211);
+	var ResultsData = __webpack_require__(233);
+
+	var Saved = React.createClass({
+		displayName: 'Saved',
+
+		getInitialState: function getInitialState() {
+			return {
+				articles: []
+			};
+		},
+
+		componentDidMount: function componentDidMount() {
+			console.log("MOUNTED");
+
+			helpers.getArticles().then(function (data) {
+
+				this.setState({
+					articles: data.articles
+				});
+
+				console.log(this.state.articles);
+			}.bind(this));
+		},
+
+		render: function render() {
+			return React.createElement(
+				'div',
+				{ className: 'col-lg-12' },
+				React.createElement(
+					'div',
+					{ className: 'panel panel-primary' },
+					React.createElement(
+						'div',
+						{ className: 'panel-heading' },
+						React.createElement(
+							'h1',
+							{ className: 'panel-title' },
+							React.createElement(
+								'strong',
+								null,
+								React.createElement('i', { className: 'fa fa-list-alt' }),
+								'  Results'
+							)
+						)
+					),
+					React.createElement(
+						'div',
+						{ className: 'panel-body' },
+						React.createElement(
+							'ul',
+							{ className: 'list-group' },
+							this.state.articles.map(function (result) {
+								return React.createElement(ResultsData, { key: result._id, data: result });
+							})
+						)
+					)
+				)
+			);
+		}
+	});
+
+	module.exports = Saved;
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var helpers = __webpack_require__(211);
+
+	var ResultsData = React.createClass({
+		displayName: 'ResultsData',
+
+		getInitialState: function getInitialState() {
+			return {
+				_id: this.props.data._id
+			};
+		},
+		deleteArticle: function deleteArticle() {
+			console.log('deleted');
+
+			var obj = {
+				_id: this.state._id
+			};
+
+			helpers.deleteArticle(obj);
+		},
+
+		render: function render() {
+
+			return React.createElement(
+				'li',
+				{ className: 'list-group-item' },
+				React.createElement(
+					'h3',
+					null,
+					React.createElement(
+						'span',
+						null,
+						React.createElement(
+							'em',
+							null,
+							this.props.data.title
+						)
+					),
+					React.createElement(
+						'span',
+						{ className: 'btn-group pull-right' },
+						React.createElement(
+							'a',
+							{ href: this.props.data.url, target: '_blank', className: 'btn btn-primary', type: 'submit', role: 'button' },
+							'View Article'
+						),
+						React.createElement(
+							'button',
+							{ className: 'btn btn-primary', onClick: this.deleteArticle },
+							'Delete'
+						)
+					)
+				),
+				React.createElement(
+					'p',
+					null,
+					'date'
+				)
+			);
+		}
+
+	});
+
+	module.exports = ResultsData;
+
+	// <li className="list-group-item">
+
+	// 						<h3>
+	// 						  	<span><em>Aliens Invade Paris</em></span>
+	// 							<span className="btn-group pull-right" >
+	// 								<button className="btn btn-default ">View Article</button>
+	// 								<button className="btn btn-primary">Save</button>
+	// 							</span>
+	// 						</h3>
+	// 						<p>Date Published: 03/15/16</p>
+
+	// 					  </li>
 
 /***/ }
 /******/ ]);

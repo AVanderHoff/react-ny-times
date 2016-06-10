@@ -1,6 +1,38 @@
 var React = require('react');
+var helpers = require('../utils/helpers');
+var ResultsData = require('./ResultsData');
 
 var Saved = React.createClass({
+  getInitialState: function(){
+		return {
+			articles:[],
+		}
+ },
+ 	
+
+componentDidMount: function(){
+		console.log("MOUNTED");
+
+		helpers.getArticles().then(function(data){
+
+ 				this.setState({
+					articles: data.articles,
+				})
+
+ 				console.log(this.state.articles)
+	
+	}.bind(this))
+
+},
+
+
+
+
+
+
+
+
+
  render: function(){
    return (
      
@@ -12,71 +44,11 @@ var Saved = React.createClass({
 					</div>
 					<div className="panel-body">
 						<ul className="list-group">
-						  <li className="list-group-item">
-						
-							<h3>
-							  	<span><em>Aliens Invade Paris</em></span>
-								<span className="btn-group pull-right" >
-									<button className="btn btn-default ">View Article</button>
-									<button className="btn btn-primary">Save</button>
-								</span> 
-							</h3>
-							<p>Date Published: 03/15/16</p>
-							
-						  </li>
+						 {this.state.articles.map(function(result) {
+           				return <ResultsData key={result._id} data={result}/>;
+        					})}
 
-						  <li className="list-group-item">
-						
-							<h3>
-							  	<span><em>Obama Gives Commencement Speech</em></span>
-								<span className="btn-group pull-right" >
-									<button className="btn btn-default ">View Article</button>
-									<button className="btn btn-primary">Save</button>
-								</span> 
-							</h3>
-							<p>Date Published: 03/15/16</p>
-
-						  </li>
-
-						  <li className="list-group-item">
-						
-							<h3>
-							  	<span><em>AIDS is Cured!</em></span>
-								<span className="btn-group pull-right" >
-									<button className="btn btn-default ">View Article</button>
-									<button className="btn btn-primary">Save</button>
-								</span> 
-							</h3>
-							<p>Date Published: 03/15/16</p>
-
-							
-						  </li>
-
-						  <li className="list-group-item">
-						
-							<h3>
-							  	<span><em>Knicks Win Championship</em></span>
-								<span className="btn-group pull-right" >
-									<button className="btn btn-default ">View Article</button>
-									<button className="btn btn-primary">Save</button>
-								</span> 
-							</h3>
-							<p>Date Published: 03/15/16</p>
-							
-						  </li>
-
-						  <li className="list-group-item">
-						
-							<h3>
-							  	<span><em>Mud: The New Superfood?</em></span>
-								<span className="btn-group pull-right" >
-									<button className="btn btn-default ">View Article</button>
-									<button className="btn btn-primary">Save</button>
-								</span> 
-							</h3>
-							<p>Date Published: 03/15/16</p>
-							
-						  </li>						  
+						  					  
 						</ul>					
 					</div>
 				</div>

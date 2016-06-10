@@ -12,15 +12,18 @@ var Router = require('react-router');
 var Route = Router.Route;
 
 
-var IndexRoute	= Router.IndexRoute
+var IndexRoute	= Router.IndexRoute;
+
+
+
 
 module.exports = (
 
 	<Route path="/" component={Main}>
 	
-
-		<IndexRoute  component={Search} />
+		<Route path = "search" component={Search}/>
 		<Route path ="saved" component={Saved}/>
+		<IndexRoute component={Search}/>
 	</Route>
 
 );

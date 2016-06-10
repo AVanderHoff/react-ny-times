@@ -1,6 +1,16 @@
 var React = require('react');
+var Router = require('react-router');
+
 
 var Main = React.createClass({
+// mixins: [Router.History],
+ gotoSearch:function(){
+ 	this.history.pushState(null, "search" )
+ },
+ gotoSaved:function(){
+ 	this.history.pushState(null, "saved" )
+ },
+
  render: function(){
    return (
      
@@ -24,8 +34,8 @@ var Main = React.createClass({
 				
 				<div className="collapse navbar-collapse navbar-ex1-collapse">
 					<ul className="nav navbar-nav navbar-right">
-						<li><a href="#">Search</a></li>
-						<li><a href="#">Saved Articles</a></li>
+						<li><a href="#/search" >Search</a></li>
+						<li><a href="#/saved" >Saved Articles</a></li>
 					</ul>
 				</div>
 			</div>

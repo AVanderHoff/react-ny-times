@@ -5,11 +5,17 @@ var Results = require('./Results');
 var Search = React.createClass({
  getInitialState: function(){
 		return {
-			articles:[]
+			articles:[],
+			topic:"",
+			start:"",
+			end:"",
+
 		}
  },
+
+
  getTopic:function(topic){
- 	this.topic = topic;
+ 	 this.topic = topic;
  },
  getStart:function(start){
  	this.start = start;
@@ -22,12 +28,13 @@ var Search = React.createClass({
  	console.log(this.topic.value)
  	console.log(this.start.value)
  	console.log(this.end.value)
- 	var topic= this.topic.value;
+ 	var topic = this.topic.value;
+ 	
  	var start = this.start.value;
  	var end = this.end.value;
 
 
- 	var query = topic + "&begin_date=" + start +"0101" + "&end_date=" + end + "0101";
+ 	var query = topic + "&begin_date=" + start +"0101" + "&end_date=" + end + "1231";
  
  		helpers.findArticles(query).then(function(data){
 
@@ -39,8 +46,9 @@ var Search = React.createClass({
  					console.log(this.state.articles)
  		}.bind(this))
 
- 		
-
+ 	// $('#search_topic').value('');
+ 	// $('#search_start').value('');
+ 	// $('#search_end').value('');
  },
 
 
@@ -102,6 +110,8 @@ var Search = React.createClass({
            return <Results key={result._id} data={result}/>;
         })}
       </ul>
+ 	  
+
  	  </div>
  	  </div>
 
