@@ -13,6 +13,7 @@
     "body-parser": "^1.15.1",
     "express": "^4.13.4",
     "history": "^1.13.1",
+    "moment": "^2.13.0",
     "mongoose": "^4.4.20",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",

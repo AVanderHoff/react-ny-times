@@ -1,6 +1,7 @@
 var React = require('react');
 var helpers = require('../utils/helpers');
 
+
 var ResultsData = React.createClass({
 
 	getInitialState:function(){
@@ -52,7 +53,7 @@ var ResultsData = React.createClass({
 									<button className="btn btn-primary" onClick={this.deleteArticle}>Delete</button>
 							</span> 
 					</h3>
-						<p>date</p>
+						<p>{this.props.data.date}</p>
 								
 				</li>
 

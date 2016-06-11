@@ -9,10 +9,10 @@ var ArticleSchema = new Schema({
 	title:{
 		type:String,
 		unique:true
+	},
+	date:{
+		type:String
 	}
-	//date:{
-	//	type:String
-	//}
 });
 
 var Article = mongoose.model('articles', ArticleSchema);

@@ -2,15 +2,18 @@ var React = require('react');
 var axios = require('axios');
 var helpers = require('../utils/helpers');
 var Router = require('react-router');
+var moment = require('moment');
 
 var Results = React.createClass({
 
 	getInitialState: function(){
+		var date = moment(this.props.data.pub_date).format('MM-DD-YYYY');
 		return {
+			
 			article:{	
 				url:this.props.data.web_url,
 				title:this.props.data.headline.main,
-
+				date:date
 			}
 		}
  	},
@@ -19,6 +22,7 @@ var Results = React.createClass({
  	saveArticle:function(){
 
  		helpers.saveArticle(this.state.article);
+ 		
  	},
 
 
@@ -36,7 +40,7 @@ var Results = React.createClass({
 						<button className="btn btn-primary" onClick={this.saveArticle}>Save</button>
 					</span> 
 				</h3>
-				<p>{this.props.data.pub_date}</p>
+				<p>{moment(this.props.data.pub_date).format('MM-DD-YYYY')}</p>
 				
 			</li>
 		)
