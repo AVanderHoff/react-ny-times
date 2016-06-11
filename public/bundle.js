@@ -24476,13 +24476,6 @@
 	var Main = React.createClass({
 		displayName: 'Main',
 
-		// mixins: [Router.History],
-		gotoSearch: function gotoSearch() {
-			this.history.pushState(null, "search");
-		},
-		gotoSaved: function gotoSaved() {
-			this.history.pushState(null, "saved");
-		},
 
 		render: function render() {
 			return React.createElement(
@@ -24579,170 +24572,179 @@
 	var Results = __webpack_require__(231);
 
 	var Search = React.createClass({
-	  displayName: 'Search',
+		displayName: 'Search',
 
-	  getInitialState: function getInitialState() {
-	    return {
-	      articles: [],
-	      topic: "",
-	      start: "",
-	      end: ""
 
-	    };
-	  },
+		getInitialState: function getInitialState() {
 
-	  getTopic: function getTopic(topic) {
-	    this.topic = topic;
-	  },
-	  getStart: function getStart(start) {
-	    this.start = start;
-	  },
-	  getEnd: function getEnd(end) {
-	    this.end = end;
-	  },
-	  handleSubmit: function handleSubmit() {
+			return {
+				articles: [],
+				topic: "",
+				start: "",
+				end: ""
+			};
+		},
 
-	    console.log(this.topic.value);
-	    console.log(this.start.value);
-	    console.log(this.end.value);
-	    var topic = this.topic.value;
+		// creates query and sends to api
+		handleSubmit: function handleSubmit() {
 
-	    var start = this.start.value;
-	    var end = this.end.value;
+			var topic = this.state.topic;
+			var start = this.state.start;
+			var end = this.state.end;
 
-	    var query = topic + "&begin_date=" + start + "0101" + "&end_date=" + end + "1231";
+			var query = topic + "&begin_date=" + start + "0101" + "&end_date=" + end + "1231";
 
-	    helpers.findArticles(query).then(function (data) {
+			helpers.findArticles(query).then(function (data) {
 
-	      this.setState({
-	        articles: data.articles
-	      });
+				this.setState({
+					articles: data.articles
 
-	      console.log(data.articles);
-	      console.log(this.state.articles);
-	    }.bind(this));
+				});
 
-	    // $('#search_topic').value('');
-	    // $('#search_start').value('');
-	    // $('#search_end').value('');
-	  },
+				this.clearTextBoxes();
+			}.bind(this));
+		},
 
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'row' },
-	      React.createElement(
-	        'div',
-	        { className: 'col-lg-12' },
-	        React.createElement(
-	          'div',
-	          { className: 'panel panel-primary' },
-	          React.createElement(
-	            'div',
-	            { className: 'panel-heading' },
-	            React.createElement(
-	              'h1',
-	              { className: 'panel-title' },
-	              React.createElement(
-	                'strong',
-	                null,
-	                React.createElement('i', { className: 'fa fa-newspaper-o', 'aria-hidden': 'true' }),
-	                '  Query'
-	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'panel-body' },
-	            React.createElement(
-	              'form',
-	              { onSubmit: this.handleSubmit },
-	              React.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                React.createElement(
-	                  'h4',
-	                  { className: '' },
-	                  React.createElement(
-	                    'strong',
-	                    null,
-	                    'Topic'
-	                  )
-	                ),
-	                React.createElement('input', { type: 'text', className: 'form-control ', id: 'search_topic', ref: this.getTopic }),
-	                React.createElement(
-	                  'h4',
-	                  { className: '' },
-	                  React.createElement(
-	                    'strong',
-	                    null,
-	                    'Start Year'
-	                  )
-	                ),
-	                React.createElement('input', { type: 'text', className: 'form-control ', id: 'search_start', ref: this.getStart }),
-	                React.createElement(
-	                  'h4',
-	                  { className: '' },
-	                  React.createElement(
-	                    'strong',
-	                    null,
-	                    'End Year'
-	                  )
-	                ),
-	                React.createElement('input', { type: 'text', className: 'form-control ', id: 'search_end', ref: this.getEnd })
-	              ),
-	              React.createElement(
-	                'div',
-	                { className: 'pull-right' },
-	                React.createElement(
-	                  'button',
-	                  { type: 'submit', className: 'btn btn-danger' },
-	                  React.createElement(
-	                    'h4',
-	                    null,
-	                    'Submit'
-	                  )
-	                )
-	              )
-	            )
-	          )
-	        )
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'col-lg-12' },
-	        React.createElement(
-	          'div',
-	          { className: 'panel panel-primary' },
-	          React.createElement(
-	            'div',
-	            { className: 'panel-heading' },
-	            React.createElement(
-	              'h1',
-	              { className: 'panel-title' },
-	              React.createElement(
-	                'strong',
-	                null,
-	                React.createElement('i', { className: 'fa fa-list-alt' }),
-	                '  Results'
-	              )
-	            )
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'panel-body' },
-	            React.createElement(
-	              'ul',
-	              { className: 'list-group' },
-	              this.state.articles.map(function (result) {
-	                return React.createElement(Results, { key: result._id, data: result });
-	              })
-	            )
-	          )
-	        )
-	      )
-	    );
-	  }
+		// gets topic on change
+		changeTopic: function changeTopic(event) {
+			this.setState({ topic: event.target.value });
+		},
+
+		//gets start on change
+		changeStart: function changeStart(event) {
+			this.setState({ start: event.target.value });
+		},
+
+		//gets end on change
+		changeEnd: function changeEnd(event) {
+			this.setState({ end: event.target.value });
+		},
+
+		// clears text boxes
+		clearTextBoxes: function clearTextBoxes() {
+			this.setState({
+				topic: '',
+				start: '',
+				end: ''
+			});
+		},
+
+		render: function render() {
+			return React.createElement(
+				'div',
+				{ className: 'row' },
+				React.createElement(
+					'div',
+					{ className: 'col-lg-12' },
+					React.createElement(
+						'div',
+						{ className: 'panel panel-primary' },
+						React.createElement(
+							'div',
+							{ className: 'panel-heading' },
+							React.createElement(
+								'h1',
+								{ className: 'panel-title' },
+								React.createElement(
+									'strong',
+									null,
+									React.createElement('i', { className: 'fa fa-newspaper-o', 'aria-hidden': 'true' }),
+									'  Query'
+								)
+							)
+						),
+						React.createElement(
+							'div',
+							{ className: 'panel-body' },
+							React.createElement(
+								'form',
+								null,
+								React.createElement(
+									'div',
+									{ className: 'form-group' },
+									React.createElement(
+										'h4',
+										{ className: '' },
+										React.createElement(
+											'strong',
+											null,
+											'Topic'
+										)
+									),
+									React.createElement('input', { type: 'text', className: 'form-control ', value: this.state.topic, onChange: this.changeTopic, ref: 'topic_input' }),
+									React.createElement(
+										'h4',
+										{ className: '' },
+										React.createElement(
+											'strong',
+											null,
+											'Start Year'
+										)
+									),
+									React.createElement('input', { type: 'text', className: 'form-control ', value: this.state.start, onChange: this.changeStart, ref: 'start_input' }),
+									React.createElement(
+										'h4',
+										{ className: '' },
+										React.createElement(
+											'strong',
+											null,
+											'End Year'
+										)
+									),
+									React.createElement('input', { type: 'text', className: 'form-control ', value: this.state.end, onChange: this.changeEnd, ref: 'end_input' })
+								),
+								React.createElement(
+									'div',
+									{ className: 'pull-right' },
+									React.createElement(
+										'button',
+										{ type: 'submit', className: 'btn btn-danger', onClick: this.handleSubmit },
+										React.createElement(
+											'h4',
+											null,
+											'Submit'
+										)
+									)
+								)
+							)
+						)
+					)
+				),
+				React.createElement(
+					'div',
+					{ className: 'col-lg-12' },
+					React.createElement(
+						'div',
+						{ className: 'panel panel-primary' },
+						React.createElement(
+							'div',
+							{ className: 'panel-heading' },
+							React.createElement(
+								'h1',
+								{ className: 'panel-title' },
+								React.createElement(
+									'strong',
+									null,
+									React.createElement('i', { className: 'fa fa-list-alt' }),
+									'  Results'
+								)
+							)
+						),
+						React.createElement(
+							'div',
+							{ className: 'panel-body' },
+							React.createElement(
+								'ul',
+								{ className: 'list-group' },
+								this.state.articles.map(function (result) {
+									return React.createElement(Results, { key: result._id, data: result });
+								})
+							)
+						)
+					)
+				)
+			);
+		}
 	});
 
 	module.exports = Search;
@@ -24756,31 +24758,8 @@
 	var axios = __webpack_require__(212);
 	var react = __webpack_require__(1);
 
-	//Here's your API Key for the Article Search API: f925611cdfbe465fa76f5d7082c467e1
-
-	// var mongoose = require('mongoose');
-
-	// //mongoose.connect('mongodb://localhost/profootballtalk');
-	// mongoose.connect("mongodb://andrew:password@ds043324.mlab.com:43324/profootballtalk", function (error) {
-	//     if (error) console.error(error);
-	//     else console.log('mongo connected');
-	// });
-
-	// var db = mongoose.connection;
-
-	// db.on('error', function(err) {
-	//   console.log('Mongoose Error: ', err);
-	// });
-	// db.once('open', function() {
-	//   console.log('Mongoose connection successful.');
-	// });
-
-	//  var Article = require('../../models/articles.js');
-
-	var currentURL = window.location.origin;
-
 	var helpers = {
-
+		// finds articles using NY Times API
 		findArticles: function findArticles(query) {
 
 			var baseQuery = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=f925611cdfbe465fa76f5d7082c467e1&q=";
@@ -24793,20 +24772,22 @@
 			});
 		},
 
+		// saves article to database
 		saveArticle: function saveArticle(obj) {
-
 			return axios.post('/save/article', obj);
 		},
 
+		// finds all articles from database
 		getArticles: function getArticles() {
 
 			return axios.get('/get/articles').then(function (response) {
-				console.log(response.data.articles);
+
 				return {
 					articles: response.data.articles };
 			});
 		},
 
+		// deletes article, obj is object with mongoose id
 		deleteArticle: function deleteArticle(obj) {
 
 			return axios.post('/delete/article', obj).then(function (response) {
@@ -25996,28 +25977,24 @@
 	var React = __webpack_require__(1);
 	var axios = __webpack_require__(212);
 	var helpers = __webpack_require__(211);
-	var currentURL = window.location.origin;
 	var Router = __webpack_require__(159);
 
 	var Results = React.createClass({
 		displayName: 'Results',
 
-		//	mixins: [Router.History],
+
 		getInitialState: function getInitialState() {
 			return {
 				article: {
 					url: this.props.data.web_url,
 					title: this.props.data.headline.main
+
 				}
 			};
 		},
-		//date:this.props.data.pub_data
+
+		// saves article to database
 		saveArticle: function saveArticle() {
-
-			console.log(currentURL);
-			console.log(this.state.article);
-
-			//put into helpers, use return statements, maybe get rid of current url
 
 			helpers.saveArticle(this.state.article);
 		},
@@ -26078,26 +26055,27 @@
 	var Saved = React.createClass({
 		displayName: 'Saved',
 
+
 		getInitialState: function getInitialState() {
+
 			return {
 				articles: []
 			};
 		},
 
+		// on page load database is queried for all articles, then is displayed.
 		componentDidMount: function componentDidMount() {
-			console.log("MOUNTED");
 
 			helpers.getArticles().then(function (data) {
-
 				this.setState({
 					articles: data.articles
 				});
-
-				console.log(this.state.articles);
 			}.bind(this));
 		},
 
+		// used in transfer of all articles minus deleted article from child(ResultsData) to parent
 		handleTransfer: function handleTransfer(articles) {
+
 			this.setState({
 				articles: articles
 
@@ -26155,12 +26133,15 @@
 	var ResultsData = React.createClass({
 		displayName: 'ResultsData',
 
+
 		getInitialState: function getInitialState() {
 			return {
 				_id: this.props.data._id,
 				articles: []
 			};
 		},
+
+		// delete article, mongoose id is used as _id
 		deleteArticle: function deleteArticle() {
 			console.log('deleted ' + this.state._id);
 
@@ -26174,12 +26155,13 @@
 					articles: data.articles
 				});
 
-				console.log(this.state.articles);
 				this.handleChange();
 			}.bind(this));
 		},
 
+		// sends articles minus deleted article to parent(Saved) element
 		handleChange: function handleChange() {
+
 			this.props.callback(this.state.articles);
 		},
 
@@ -26226,19 +26208,6 @@
 	});
 
 	module.exports = ResultsData;
-
-	// <li className="list-group-item">
-
-	// 						<h3>
-	// 						  	<span><em>Aliens Invade Paris</em></span>
-	// 							<span className="btn-group pull-right" >
-	// 								<button className="btn btn-default ">View Article</button>
-	// 								<button className="btn btn-primary">Save</button>
-	// 							</span>
-	// 						</h3>
-	// 						<p>Date Published: 03/15/16</p>
-
-	// 					  </li>
 
 /***/ }
 /******/ ]);

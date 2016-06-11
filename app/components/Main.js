@@ -3,22 +3,15 @@ var Router = require('react-router');
 
 
 var Main = React.createClass({
-// mixins: [Router.History],
- gotoSearch:function(){
- 	this.history.pushState(null, "search" )
- },
- gotoSaved:function(){
- 	this.history.pushState(null, "saved" )
- },
+
+
 
  render: function(){
    return (
      
      <div className="container">
          
-         
-
-         		<nav className="navbar navbar-default" role="navigation">
+         <nav className="navbar navbar-default" role="navigation">
 			<div className="container-fluid">
 				
 				<div className="navbar-header">
@@ -49,31 +42,8 @@ var Main = React.createClass({
 		</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
          {this.props.children}
      
-
-
-
-
-
-
-
-
 
      </div>
    )

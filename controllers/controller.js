@@ -20,8 +20,8 @@ db.once('open', function() {
   console.log('Mongoose connection successful.');
 });
 
- var Article = require('../models/articles.js');
-// var Comment = require('../models/comments.js');
+var Article = require('../models/articles.js');
+
 
 module.exports = function(app){
 
@@ -30,43 +30,36 @@ module.exports = function(app){
     res.send(index.html);
   })
 
-
+  // save new article
   app.post('/save/article',function(req,res){
 
-    console.log(req.body);
     var article = new Article(req.body);
 
     article.save();
 
   });
 
+  // find all articles
   app.get('/get/articles',function(req,res){
-
-    
+ 
     Article.find({}).exec(function(err,doc){
 
       var obj = {
           articles:doc
       }
 
-
-
-      //console.log(doc);
       res.json(obj);
 
     })
 
   });
 
+  // deletes article then returns all remaining articles
   app.post('/delete/article',function(req,res){
 
-    console.log(req.body)
-    // Article.findOneAndRemove({_id:req.body._id}).then(function(){
-    //   console.log(req.body._id + " removed")
-    
-    // })
 
     Article.findOneAndRemove({_id:req.body._id},function(err,arr){
+        
         if (err) return handleError(err);
         
         Article.find({}).exec(function(err,doc){
@@ -81,77 +74,6 @@ module.exports = function(app){
     
     })
 
-
-
   })
-
-
-  
-
-
-
-
-
-  // //get article by id, return entire article entry, including
-  // // populated comments
-  // app.get('/articles',function(req,res){
-  //   var url_parts = url.parse(req.url,true);
-
-  //      Article.findOne({_id:url_parts.query.number})
-  //       .populate('comments')
-  //       .exec(function(err, doc) {
-         
-  //         var responsedata = {
-  //            article:doc
-  //         }
-          
-  //         res.json(responsedata);
-
-  //       });
-
-  // });
-
-  // //scrapes articles off of www.profootballtalk.com, first gets links then opens 
-  // // those links using request. Scrapes the links for content.
-  
-  // //post new comment
-  // app.post('/postcomments',function(req,res){
-  // var url_parts = url.parse(req.url,true);
-
-  //   var comment = new Comment(req.body);
-
-  //   comment.save(function(err, doc) {
-  //     if (err) {
-  //       res.send(err);
-  //     } 
-  //     else {
-  //       Article.findOneAndUpdate({_id:url_parts.query.number}, {$push: {'comments': doc._id}}, {new: true})
-  //         .populate('comments')
-  //         .exec(function(err, doc3){
-  //             res.json(doc3.comments);
-  //         }); 
-  //     }
-  //   });
-  // });
-
-  // //delete last comment in in array
-  // app.get('/deletecomment',function(req,res){
-  //   var url_parts = url.parse(req.url,true);
-  //   Article.findOneAndUpdate({_id:url_parts.query.number}, {$pop: {'comments': 1}})
-  //     .populate('comments')
-  //     .exec(function(err, doc4){
-
-  //       res.json(doc4.comments);
-  //       var commentid = doc4.comments[doc4.comments.length - 1]._id;
-
-  //       Comment.findByIdAndRemove(commentid,function(){
-  //           console.log(commentid + ' deleted');
-  //         })
-  //     });
-  // });
-
-
-
-
 
 }
