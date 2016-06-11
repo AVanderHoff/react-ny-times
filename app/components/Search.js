@@ -18,9 +18,10 @@ var Search = React.createClass({
 	 handleSubmit:function(){
 
 	 	
-	 	var topic = this.state.topic;
-	 	var start = this.state.start;
-	 	var end = this.state.end;
+	 	 var topic = this.state.topic;
+	 	 var start = this.state.start;
+	 	 var end = this.state.end;
+
 
 	 	var query = topic + "&begin_date=" + start +"0101" + "&end_date=" + end + "1231";
 	 
@@ -87,7 +88,7 @@ var Search = React.createClass({
 
 								
 								<div className="pull-right">
-									<button type="submit" className="btn btn-danger" onClick={this.handleSubmit}><h4>Submit</h4></button>
+									<button type="button" className="btn btn-danger" onClick={this.handleSubmit}><h4>Submit</h4></button>
 								</div>
 							</form>
 

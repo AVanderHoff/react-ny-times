@@ -10,7 +10,7 @@ var Results = React.createClass({
 			article:{	
 				url:this.props.data.web_url,
 				title:this.props.data.headline.main,
-				
+
 			}
 		}
  	},
@@ -20,6 +20,7 @@ var Results = React.createClass({
 
  		helpers.saveArticle(this.state.article);
  	},
+
 
 
 	render:function(){

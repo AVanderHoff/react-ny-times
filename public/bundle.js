@@ -24698,7 +24698,7 @@
 									{ className: 'pull-right' },
 									React.createElement(
 										'button',
-										{ type: 'submit', className: 'btn btn-danger', onClick: this.handleSubmit },
+										{ type: 'button', className: 'btn btn-danger', onClick: this.handleSubmit },
 										React.createElement(
 											'h4',
 											null,
